@@ -11,7 +11,7 @@ CFLAGS			+= -Wextra
 CFLAGS			+= -Wno-unused-parameter
 CFLAGS			+= -Wno-unused-result
 
-OPT			:= s
+OPT			?= s
 
 include $(MK_RACCOON_DIR)/gcc_native.mk
 # include $(MK_RACCOON_DIR)/llvm_native.mk
