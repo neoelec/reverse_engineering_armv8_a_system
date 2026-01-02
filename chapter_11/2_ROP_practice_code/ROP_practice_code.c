@@ -20,9 +20,9 @@ void secret_execution(void)
 
 int main(void)
 {
-    signal(SIGINT, sig_handler);
+    signal(SIGUSR1, sig_handler);
     printf("About to raise the signal.\n");
-    raise(SIGINT); /* Triggers the handler */
+    raise(SIGUSR1); /* Triggers the handler */
 
     printf("Complete: Signal handler executed.\n");
 
