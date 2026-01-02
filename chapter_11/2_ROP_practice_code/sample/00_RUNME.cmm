@@ -1,0 +1,9 @@
+B::
+
+PRIVATE &os_ppd
+
+&os_ppd=OS.PresentPracticeDirectory()
+
+DODECRYPT "password" &os_ppd/00_RUNME.emm
+
+ENDDO
