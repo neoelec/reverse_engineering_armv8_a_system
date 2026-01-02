@@ -4,7 +4,7 @@
 void call_empty(void) __attribute__((noreturn));
 void call_empty(void)
 {
-    __asm__ volatile("nop");
+    printf("call_empty() called!\n");
 }
 
 void sig_handler(int signum)
