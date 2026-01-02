@@ -5,7 +5,7 @@
 #### `__attribute__((noreturn))` or `__noreturn`
 - `call_empty`
   - `__noreturn` 속성을 가진 `call_empty` 함수는 `ret`를 호출한다.
-  - `__noreturn` 속성은 컴파일러에게 **'이 함수는 리턴하지 않음'** 이라고 알려주는 것이지마, `ret`를 호출하고 있으므로 아래와 같은 빌드 경고를 출력한다.
+  - `__noreturn` 속성은 컴파일러에게 **'이 함수는 리턴하지 않음'** 이라고 알려주는 것이지만, `ret`를 호출하고 있으므로 아래와 같은 빌드 경고를 출력한다.
 ```
 ROP_practice_code.c: In function ‘call_empty’:
 ROP_practice_code.c:8:1: warning: ‘noreturn’ function does return
@@ -37,25 +37,9 @@ main 0xaaaaaaaa0890 [ICOD:r--] add x1, x0, sym.sig_handler
 
 #### `sig_handler` + `secret_execution`
 ![img](./img/concatenated.png)
-- `call_empty` 에서 `sig_handler` 복귀할 때 `lr` 레지스터의 값은 `secret_execution` 의 시작 주소
-- `secret_execution`의 Function Prolog `lr`을 스택에 보관한다.
+- `call_empty` 에서 `sig_handler`로 복귀할 때 `lr` 레지스터의 값은 `secret_execution` 의 시작 주소
+- `secret_execution`의 Function Prolog 에서 `lr`을 스택에 보관한다.
 - `secret_execution`의 Function Epilog 에서 `lr`을 스택으로부터 복원한다.
   - 이 때 `lr` 레지스터의 값은 `secret_execution`의 시작 주소 이므로 무한루프에 빠지게 된다.
 
-```plantuml
-participant "main" as A1
-participant "sig_handler" as A2
-participant "call_empty" as A3
-participant "secret_execution" as A4
-
-A1 -> A2 : raise(SIGUSR1)
-A2 -> A3 : call_empty()
-A3 -> A2 : ret
-A2 --> A4 : two functions are concatenated
-A4 -> A2 : ret
-A2 --> A4 : two functions are concatenated
-A4 -> A2 : ret
-note right A2
-infinite loop
-endnote
-```
+![img](https://www.plantuml.com/plantuml/svg/hOsnJiGm38RtF8Lrqp4mbDx4WDG9iL8nLrRgjfPI9qfS0M-FGv6gCj_WmT_dtt_2hEmveIXSLcIv01Re6dSIXUTXGHa3vTq_dRt740PQatxlklqN9vz91_eYlod7luwRSrq3Zo_s3PuX8nUwzc-l7_rxy-2CLTEQEPvVZRT7WlJthEuts_KpmhI9hmq5C1FuA1wLn6PqTdEVf4Gbo3mlQionJ2ni9CIO7CbOzGy0)
