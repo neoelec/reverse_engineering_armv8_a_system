@@ -7,6 +7,16 @@ MK_RACCOON_DIR		:= $(I_HDD00)/08.PROJECT/mk-raccoon
 VPATH			+= $(PRJ_NATIVE_MK_DIR)/src_c
 EXTRAINCDIRS		+= $(PRJ_NATIVE_MK_DIR)/inc
 
+DSA_RACCOON_DIR		:= $(I_HDD00)/08.PROJECT/dsa-raccoon
+EXTRAINCDIRS		+= $(DSA_RACCOON_DIR)/inc
+VPATH			+= $(DSA_RACCOON_DIR)/src_c
+
+DEBUG_RACCOON_DIR	:= $(I_HDD00)/08.PROJECT/debug-raccoon
+EXTRAINCDIRS		+= $(DEBUG_RACCOON_DIR)/inc
+VPATH			+= $(DEBUG_RACCOON_DIR)/src_c
+
+CSRCS			+= rcn_c_debug.c
+
 CFLAGS			+= -Wextra
 CFLAGS			+= -Wno-unused-parameter
 CFLAGS			+= -Wno-unused-result
