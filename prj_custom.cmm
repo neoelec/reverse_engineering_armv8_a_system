@@ -1,0 +1,38 @@
+B::
+
+PRIVATE &E_Func &E_Args
+ENTRY &E_Func %LINE &E_Args
+PRIVATE &ret
+
+GOSUB &E_Func &E_Args
+ENTRY %LINE &ret
+
+ENDDO &ret
+
+on_init_soc:
+(
+  PRIVATE &gdbserver_port
+
+  SYStem.GDBconfig GDBSERVER OFF
+  SYStem.GDBconfig EXTENDED OFF
+
+  Break.SELect Program SOFT
+
+  &gdbserver_port="2331"
+  IF (CPUFAMILY()=="ARM")
+    &gdbserver_port="5531"
+  ELSE IF (CPUFAMILY()=="RISCV")
+    &gdbserver_port="6631"
+
+  &G_RCN_Baremetal_GDB_Port="localhost:&gdbserver_port"
+  SYStem.PORT &G_RCN_Baremetal_GDB_Port
+
+  RETURN
+)
+
+on_main:
+(
+  sYmbol.SourcePATH.SetRecurseDir &G_RCN_PWD
+
+  RETURN
+)
