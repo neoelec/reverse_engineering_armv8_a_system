@@ -15,6 +15,8 @@ DEBUG_RACCOON_DIR	:= $(I_HDD00)/08.PROJECT/debug-raccoon
 EXTRAINCDIRS		+= $(DEBUG_RACCOON_DIR)/inc
 VPATH			+= $(DEBUG_RACCOON_DIR)/src_c
 
+GDB_REMOTE_PORT		+= 5531
+
 CSRCS			+= rcn_c_debug.c
 
 CFLAGS			+= -Wextra
