@@ -42,3 +42,8 @@ on_entry:
 
   RETURN
 )
+
+on_main:
+(
+  RETURN
+)
